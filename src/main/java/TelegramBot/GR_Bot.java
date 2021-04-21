@@ -47,7 +47,7 @@ public class GR_Bot extends TelegramLongPollingBot {
             ParsedCommand command = new ParsedCommand();
             command = newText.getParsedCommand(text);
 
-            response.setText(command.getCommand().toString());
+            response.setText(command.getCommand().toString()) ;
             try {
                 execute(response);
                 logger.info("Sent message \"{}\" to {}", text, chatId);
