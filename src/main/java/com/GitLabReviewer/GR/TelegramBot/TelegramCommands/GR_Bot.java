@@ -1,7 +1,5 @@
-package TelegramBot;
+package com.GitLabReviewer.GR.TelegramBot.TelegramCommands;
 
-import TelegramBot.TelegramCommands.ParsedCommand;
-import TelegramBot.TelegramCommands.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +42,7 @@ public class GR_Bot extends TelegramLongPollingBot {
             response.setChatId(String.valueOf(chatId));
             String text = message.getText();
             Parser newText = new Parser(username);
-            ParsedCommand command = new ParsedCommand();
+            ParsedCommand command;
             command = newText.getParsedCommand(text);
 
             response.setText(command.getCommand().toString()) ;
@@ -63,4 +61,5 @@ public class GR_Bot extends TelegramLongPollingBot {
     public void start() {
         logger.info("username: {}, token: {}", username, token);
     }
+
 }

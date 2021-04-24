@@ -1,4 +1,4 @@
-package TelegramBot.TelegramCommands;
+package com.GitLabReviewer.GR.TelegramBot.TelegramCommands;
 
 import java.util.AbstractMap;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package TelegramBot.TelegramCommands;
+package com.GitLabReviewer.GR.TelegramBot.TelegramCommands;
 
 public enum Command {
     NONE, NOTFORME,
