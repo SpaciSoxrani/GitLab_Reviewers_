@@ -3,7 +3,10 @@ package com.GitLabReviewer.GR.Message;
 import com.GitLabReviewer.GR.DataBase.User;
 import com.GitLabReviewer.GR.DataBase.UserNotFoundException;
 import com.GitLabReviewer.GR.DataBase.UserRepository;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 import org.json.JSONObject;
+import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -16,9 +19,17 @@ import java.util.List;
 public class MessageController {
 
     private final UserRepository repository;
-
     MessageController(UserRepository repository) {
         this.repository = repository;
+    }
+
+    JSONObject webhook;
+    public void setWebHook(JSONObject newWebHook){
+        this.webhook = newWebHook;
+    }
+
+    public JSONObject getWebHook(){
+        return webhook;
     }
 
     @GetMapping("/users")
@@ -26,20 +37,25 @@ public class MessageController {
         return repository.findAll();
     }
 
-    @PostMapping("/users")
-    User newUser(@RequestBody String body, User newUser) {
+    @PostMapping(value = "/users")
+    User newUser(@RequestBody User newUser) {
         return repository.save(newUser);
     }
 
-    @PostMapping("/webhook")
-    JSONObject newWebHook(JSONObject message) {
-        return message;
+    @PostMapping(value = "/webhook", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    String newWebHook(JSONObject message) {
+        setWebHook(message);
+        
+        if(message != null) {
+            return "successful!";
+        }
+        else return "message = null";
     }
 
-//    @GetMapping("/webhookw")
-//    JSONObject getWebHook() {
-//        return webhook;
-//    }
+    @GetMapping("/webhook2")
+    JSONObject getNewWebHook() {
+        return getWebHook();
+    }
 
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) {
@@ -48,7 +64,7 @@ public class MessageController {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
 
         return repository.findById(id)
@@ -71,7 +87,7 @@ public class MessageController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public ServerMessage greeting(MessageForm message){
+    public ServerMessage greeting(@RequestBody MessageForm message){
         //Thread.sleep(1000); // simulated delay
         return new ServerMessage("Hello, как это заебало " + message.returnMassage() + "!");
     }
