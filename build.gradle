@@ -26,14 +26,23 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-websocket")
-    compile("org.springframework:spring-messaging")
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework:spring-messaging'
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.projectlombok:lombok:1.18.16'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.4.1'
+	implementation 'com.h2database:h2'
+
+	implementation 'com.google.code.gson:gson:2.8.5'
+	implementation 'org.springframework.boot:spring-boot-configuration-processor'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile "org.telegram:telegrambots-spring-boot-starter:5.0.1"
+	implementation 'org.telegram:telegrambots:5.0.0'
 
+	implementation 'org.java-websocket:Java-WebSocket:1.5.1'
 	implementation 'org.webjars:webjars-locator-core'
 	implementation 'org.webjars:sockjs-client:1.1.1'
 	implementation 'org.webjars:stomp-websocket:2.3.3'

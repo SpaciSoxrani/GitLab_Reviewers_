@@ -15,10 +15,6 @@ public class MessageForm {
     }
 
     public String returnMassage(){
-//
-//        if(message == null) {
-//            return "This name doesn't exist";
-//        }
          return message;
     }
 
