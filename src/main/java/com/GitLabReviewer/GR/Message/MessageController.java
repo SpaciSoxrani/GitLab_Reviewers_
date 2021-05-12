@@ -89,6 +89,6 @@ public class MessageController {
     @SendTo("/topic/greetings")
     public ServerMessage greeting(@RequestBody MessageForm message){
         //Thread.sleep(1000); // simulated delay
-        return new ServerMessage("Hello, как это заебало " + message.returnMassage() + "!");
+        return new ServerMessage("Hello, " + message.returnMassage() + "!");
     }
 }
