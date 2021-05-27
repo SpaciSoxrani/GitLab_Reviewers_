@@ -1,8 +1,8 @@
 package com.GitLabReviewer.GR.Message;
 
-import com.GitLabReviewer.GR.DataBase.User;
-import com.GitLabReviewer.GR.DataBase.UserNotFoundException;
-import com.GitLabReviewer.GR.DataBase.UserRepository;
+import com.GitLabReviewer.GR.DataBase.UserDB.User;
+import com.GitLabReviewer.GR.DataBase.UserDB.UserNotFoundException;
+import com.GitLabReviewer.GR.DataBase.UserDB.UserRepository;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import org.json.JSONObject;
@@ -83,12 +83,5 @@ public class MessageController {
     @DeleteMapping("/users/{id}")
     void deleteUser(@PathVariable Long id) {
         repository.deleteById(id);
-    }
-
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public ServerMessage greeting(@RequestBody MessageForm message){
-        //Thread.sleep(1000); // simulated delay
-        return new ServerMessage("Hello, как это заебало " + message.returnMassage() + "!");
     }
 }
