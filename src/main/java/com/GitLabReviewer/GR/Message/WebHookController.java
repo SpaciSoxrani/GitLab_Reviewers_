@@ -41,15 +41,6 @@ public class WebHookController {
             System.out.println(userFromJSON);
             bot.sendMsg(userFromJSON.webhookBotMessage());
         }
-//        JSONBuilder newJson = new JSONBuilder(
-//                String.valueOf(json.get("object_kind")),
-//                String.valueOf(json.get("user_username")),
-//                String.valueOf(json.get("user_email")),
-//                String.valueOf(json.get("user_avatar")));
-//        System.out.println(newJson);
-//        webHookRepository.save(newJson);
-//
-//        bot.sendMsg(newJson.webhookBotMessage());
     }
 
     @GetMapping("/webhook")
