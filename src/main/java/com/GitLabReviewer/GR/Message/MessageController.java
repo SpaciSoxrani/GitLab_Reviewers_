@@ -1,11 +1,8 @@
 package com.GitLabReviewer.GR.Message;
 
-import com.GitLabReviewer.GR.DataBase.User;
-import com.GitLabReviewer.GR.DataBase.UserNotFoundException;
-import com.GitLabReviewer.GR.DataBase.UserRepository;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-import org.json.JSONObject;
+import com.GitLabReviewer.GR.DataBase.UserDB.User;
+import com.GitLabReviewer.GR.DataBase.UserDB.UserNotFoundException;
+import com.GitLabReviewer.GR.DataBase.UserDB.UserRepository;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -23,15 +20,6 @@ public class MessageController {
         this.repository = repository;
     }
 
-    JSONObject webhook;
-    public void setWebHook(JSONObject newWebHook){
-        this.webhook = newWebHook;
-    }
-
-    public JSONObject getWebHook(){
-        return webhook;
-    }
-
     @GetMapping("/users")
     List<User> all() {
         return repository.findAll();
@@ -42,20 +30,6 @@ public class MessageController {
         return repository.save(newUser);
     }
 
-    @PostMapping(value = "/webhook", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    String newWebHook(JSONObject message) {
-        setWebHook(message);
-        
-        if(message != null) {
-            return "successful!";
-        }
-        else return "message = null";
-    }
-
-    @GetMapping("/webhook2")
-    JSONObject getNewWebHook() {
-        return getWebHook();
-    }
 
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) {
@@ -83,12 +57,5 @@ public class MessageController {
     @DeleteMapping("/users/{id}")
     void deleteUser(@PathVariable Long id) {
         repository.deleteById(id);
-    }
-
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public ServerMessage greeting(@RequestBody MessageForm message){
-        //Thread.sleep(1000); // simulated delay
-        return new ServerMessage("Hello, как это заебало " + message.returnMassage() + "!");
     }
 }

@@ -1,4 +1,4 @@
-package com.GitLabReviewer.GR.DataBase;
+package com.GitLabReviewer.GR.DataBase.UserDB;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,12 +7,13 @@ import java.util.Objects;
 
 @Entity
 public class User {
-    private @Id
+    public @Id
     @GeneratedValue
     Long id;
-    private String name;
-    private String role;
-    private Boolean canCheck;
+    public String name;
+    public String role;
+    public Boolean canCheck;
+
 
     protected User() {}
 

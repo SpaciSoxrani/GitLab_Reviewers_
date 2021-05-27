@@ -1,4 +1,4 @@
-package com.GitLabReviewer.GR.DataBase;
+package com.GitLabReviewer.GR.DataBase.UserDB;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ class LoadDatabase {
 
         return args -> {
             log.info("Preloading " + repository.save(new User("Bilbo Baggins", "middle",false)));
-            log.info("Preloading " + repository.save(new User("Frodo Baggins", "senior",false)));
+            //log.info("Preloading " + repository.save(new User("Frodo Baggins", "senior",false)));
         };
     }
 }

@@ -1,4 +1,4 @@
-package com.GitLabReviewer.GR.DataBase;
+package com.GitLabReviewer.GR.DataBase.UserDB;
 
 public class UserNotFoundException extends RuntimeException {
 
