@@ -118,33 +118,7 @@ public class GR_Bot extends TelegramLongPollingBot {
     }
 
     public synchronized void sendMsg(String message) {
-//        HttpResponse<String> response = null;
-//
-//        HttpClient client = HttpClient.newBuilder()
-//                .connectTimeout(Duration.ofSeconds(5))
-//                .version(HttpClient.Version.HTTP_2)
-//                .build();
-//
-//        UriBuilder builder = UriBuilder
-//                .fromUri("https://api.telegram.org")
-//                .path("/{token}/sendMessage")
-//                .queryParam("chat_id", myChartId)
-//                .queryParam("text", message)
-//                .queryParam("parse_mode", "html");
-//
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .GET()
-//                .uri(builder.build("bot" + token))
-//                .timeout(Duration.ofSeconds(5))
-//                .build();
-//        try {
-//            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        }
-//        catch(IOException | InterruptedException ex) {
-//            logger.warn("Error sending message to Telegram Bot");
-//        }
-//
-//        return (response != null) ? response.statusCode() : -1;
+
         SendMessage response = new SendMessage();
         String chatId = myChartId;
         response.setChatId(chatId);

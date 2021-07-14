@@ -1,9 +1,14 @@
-package com.GitLabReviewer.GR.Controllers;
+package com.GitLabReviewer.GR.Message;
 
 import com.GitLabReviewer.GR.DataBase.UserDB.User;
 import com.GitLabReviewer.GR.DataBase.UserDB.UserNotFoundException;
 import com.GitLabReviewer.GR.DataBase.UserDB.UserRepository;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +23,13 @@ public class MessageController {
         this.repository = repository;
     }
 
-    @PostMapping("/hello")
-    public void UserName(String name){
-        User user = new User(name, "", false);
-        repository.save(user);
+    JSONObject webhook;
+    public void setWebHook(JSONObject newWebHook){
+        this.webhook = newWebHook;
     }
 
-    @GetMapping("/hello")
-    List<User> getUser(){
-        return repository.findAll();
+    public JSONObject getWebHook(){
+        return webhook;
     }
 
     @GetMapping("/users")
@@ -39,6 +42,20 @@ public class MessageController {
         return repository.save(newUser);
     }
 
+    @PostMapping(value = "/webhook", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    String newWebHook(JSONObject message) {
+        setWebHook(message);
+        
+        if(message != null) {
+            return "successful!";
+        }
+        else return "message = null";
+    }
+
+    @GetMapping("/webhook2")
+    JSONObject getNewWebHook() {
+        return getWebHook();
+    }
 
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) {
