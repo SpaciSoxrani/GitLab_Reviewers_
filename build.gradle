@@ -51,6 +51,8 @@ dependencies {
 	implementation 'org.webjars:bootstrap:4.6.0'
 	implementation 'org.webjars:jquery:3.5.1'
 
+	//implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client'
+
 	testCompile("junit:junit")
 }
 

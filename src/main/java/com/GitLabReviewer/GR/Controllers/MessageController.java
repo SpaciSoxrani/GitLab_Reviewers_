@@ -1,11 +1,9 @@
-package com.GitLabReviewer.GR.Message;
+package com.GitLabReviewer.GR.Controllers;
 
 import com.GitLabReviewer.GR.DataBase.UserDB.User;
 import com.GitLabReviewer.GR.DataBase.UserDB.UserNotFoundException;
 import com.GitLabReviewer.GR.DataBase.UserDB.UserRepository;
 import org.springframework.http.MediaType;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +16,17 @@ public class MessageController {
     private final UserRepository repository;
     MessageController(UserRepository repository) {
         this.repository = repository;
+    }
+
+    @PostMapping("/hello")
+    public void UserName(String name){
+        User user = new User(name, "", false);
+        repository.save(user);
+    }
+
+    @GetMapping("/hello")
+    List<User> getUser(){
+        return repository.findAll();
     }
 
     @GetMapping("/users")

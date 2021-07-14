@@ -76,5 +76,9 @@ public class User {
     public String toString() {
         return "User{" + "id=" + this.id + ", name='" + this.name + '\'' + ", role='" + this.role + '\'' + ", canCheck=" +this.canCheck + '\'' + '}';
     }
+
+    public void DownLoadToDB(User user, UserRepository repository){
+        repository.save(user);
+    }
 }
 
